@@ -1,6 +1,13 @@
 import requests  
 import datetime
 
+## https://tproger.ru/translations/telegram-bot-create-and-deploy/
+## https://stackoverflow.com/questions/55776767/how-to-hide-bot-telegram-token-with-gitignore
+
+TOKEN = None
+with open("token.txt") as f:
+    TOKEN = f.read().strip()
+
 class BotHandler:
 
     def __init__(self, token):
@@ -26,12 +33,12 @@ class BotHandler:
         if len(get_result) > 0:
             last_update = get_result[-1]
         else:
-            last_update = get_result[len(get_result)]
+            last_update = None
 
         return last_update
         
 
-greet_bot = BotHandler('1096210902:AAFbYgyl38gRhxbb4dSsmexqOPN6j-cu9K4')  
+greet_bot = BotHandler(TOKEN)  
 greetings = ('hello', 'hi', 'greetings', 'sup')  
 now = datetime.datetime.now()
 
@@ -45,6 +52,7 @@ def main():
         greet_bot.get_updates(new_offset)
 
         last_update = greet_bot.get_last_update()
+        if not last_update: continue 
 
         last_update_id = last_update['update_id']
         last_chat_text = last_update['message']['text']
