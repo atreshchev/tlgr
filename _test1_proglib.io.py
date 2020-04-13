@@ -1,12 +1,11 @@
 import requests  
 import datetime
 
+import os
+TOKEN = os.environ["TOKEN"]
+
 ## https://tproger.ru/translations/telegram-bot-create-and-deploy/
 ## https://stackoverflow.com/questions/55776767/how-to-hide-bot-telegram-token-with-gitignore
-
-TOKEN = None
-with open("token.txt") as f:
-    TOKEN = f.read().strip()
 
 class BotHandler:
 
